@@ -89,4 +89,3 @@ function saveState() {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🎯 MagicSender v5.3 LIVE on port ${PORT}`));
-```__
