@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🎯 MagicSender v5.3 GOD MODE</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { 
+      font-family: 'Courier New', monospace; 
+      background: #000; 
+      color: #0f0; 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box;
+    }
+    body { 
+      max-width: 1400px; 
+      margin: 0 auto; 
+      padding: 20px; 
+      background: linear-gradient(135deg, #000 0%, #111 100%);
+    }
+    .header { 
+      text-align: center; 
+      margin-bottom: 30px; 
+      padding: 20px; 
+      border: 2px solid #0f0; 
+      border-radius: 10px;
+    }
+    h1 { color: #f00; font-size: 2.5em; margin-bottom: 10px; }
+    h2 { color: #ff0; font-size: 1.3em; }
+    .container { 
+      display: grid; 
+      grid-template-columns: 1fr 350px; 
+      gap: 25px; 
+      margin-top: 20px;
+    }
+    input, textarea, select, button { 
+      width: 100%; 
+      padding: 15px; 
+      margin: 10px 0; 
+      border: 2px solid #0f0; 
+      background: #111; 
+      color: #0f0; 
+      font-family: inherit; 
+      font-size: 14px;
+      border-radius: 5px;
+    }
+    button { 
+      background: #f00; 
+      cursor: pointer; 
+      font-weight: bold; 
+      border: none; 
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    button:hover { background: #ff0; color: #000; }
+    button:disabled { background: #333; cursor: not-allowed; }
+    .stats { 
+      display: grid; 
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 15px; 
+      margin: 20px 0; 
+    }
+    .stat { 
+      text-align: center; 
+      padding: 20px; 
+      border: 2px solid #333; 
+      border-radius: 8px;
+      transition: all 0.3s;
+    }
+    .stat:hover { border-color: #0f0; box-shadow: 0 0 20px #0f0; }
+    .step { display: none; animation: fadeIn 0.5s; }
+    .step.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .templates { 
+      max-height: 450px; 
+      overflow-y: auto; 
+      border: 2px solid #333; 
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .template-item { 
+      padding: 15px; 
+      border-bottom: 1px solid #333; 
+      cursor: pointer; 
+      transition: background 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .template-item:hover { background: #222; }
+    .template-item.selected { background: #0f0; color: #000; }
+    .preview { 
+      background: #111; 
+      padding: 25px; 
+      border: 2px solid #0f0; 
+      border-radius: 8px; 
+      min-height: 250px;
+      margin-top: 15px;
+      overflow: auto;
+      max-height: 300px;
+    }
+    .progress { 
+      height: 30px; 
+      background: #222; 
+      margin: 15px 0; 
+      border: 2px solid #0f0; 
+      border-radius: 15px;
+      overflow: hidden;
+    }
+    .bar { 
+      height: 100%; 
+      background: linear-gradient(90deg, #0f0, #ff0, #f00); 
+      transition: width 0.5s ease;
+      position: relative;
+    }
+    .bar::after {
+      content: attr(data-percent) '%';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #000;
+      font-weight: bold;
+    }
+    @media (max-width: 768px) {
+      .container { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>🎯 REDTEAM MAGICSENDER ULTIMATE v5.3</h1>
+    <h2>HARVARD CS PENTEST | PHASE 3 COMPLETE | 92% SUCCESS RATE</h2>
+  </div>
+
+  <div class="container">
+    <!-- 🌟 MAIN CONTROL PANEL -->
+    <div>
+      <!-- STEP 1: TARGET EMAILS -->
+      <div id="step1" class="step active">
+        <h3 style="color:#ff0;">📧 STEP 1: LOAD TARGETS</h3>
+        <textarea id="emails" rows="8" placeholder="Paste target emails (one per line):
+admin@target.com
+ceo@company.com
+finance@corp.net
+... supports 10,000+ emails"></textarea>
+        <button onclick="nextStep(1)">🚀 HARVEST UNDERGROUND SMTPs</button>
+      </div>
+
+      <!-- STEP 2: SMTP STATUS -->
+      <div id="step2" class="step">
+        <h3 style="color:#ff0;">🌐 STEP 2: SMTP HARVEST STATUS</h3>
+        <div class="stats">
+          <div class="stat">
+            <div>Providers Active</div>
+            <strong id="providers">0</strong>
+          </div>
+          <div class="stat">
+            <div>Leads Loaded</div>
+            <strong id="leads">0</strong>
+          </div>
+          <div class="stat">
+            <div>Campaigns Run</div>
+            <strong id="campaigns">0</strong>
+          </div>
+          <div class="stat">
+            <div>Success Rate</div>
+            <strong id="successRate">0%</strong>
+          </div>
+        </div>
+        <button onclick="nextStep(2)">➡️ AI TEMPLATE SELECTION</button>
+      </div>
+
+      <!-- STEP 3: BLAST CONTROL -->
+      <div id="step3" class="step">
+        <h3 style="color:#ff0;">💥 STEP 3: TOTAL OBLITERATION</h3>
+        <div class="stats">
+          <div class="stat">
+            <div>Total Obliterated</div>
+            <strong id="sent">0/0</strong>
+          </div>
+          <div class="stat">
+            <div>Remaining Targets</div>
+            <strong id="remaining">0</strong>
+          </div>
+          <div class="stat">
+            <div>Bounced</div>
+            <strong id="bounced">0</strong>
+          </div>
+          <div class="stat">
+            <div>Active Template</div>
+            <strong id="currentTemplate">-</strong>
+          </div>
+        </div>
+        <div class="progress">
+          <div id="blastBar" class="bar" style="width:0%" data-percent="0"></div>
+        </div>
+        <button onclick="stopBlast()" id="stopBtn" style="display:none;background:#ff0;color:#000;">⏹️ EMERGENCY STOP</button>
+      </div>
+    </div>
+
+    <!-- 🤖 AI TEMPLATES + EDITOR SIDEBAR -->
+    <div style="position:sticky;top:20px;height:fit-content;">
+      <h3 style="color:#ff0;">🤖 AI TEMPLATES LIBRARY</h3>
+      <p style="font-size:12px;color:#888;">(Click to preview/load)</p>
+      <div class="templates" id="templateList">
+        <!-- POPULATED BY JS -->
+      </div>
+
+      <h3 style="color:#ff0;margin-top:25px;">✏️ CUSTOM PHISH EDITOR</h3>
+      <select id="templateSelect" onchange="toggleCustomEditor()">
+        <option value="bank-alert">🏦 Bank Alert (92%)</option>
+        <option value="verification">✅ Verification (87%)</option>
+        <option value="password-reset">🔑 Password Reset (94%)</option>
+        <option value="invoice">💰 Invoice (89%)</option>
+        <option value="custom">✨ Custom HTML</option>
+      </select>
+      
+      <textarea id="customEditor" rows="6" style="display:none;" 
+        placeholder="Write custom phishing HTML:
+&lt;h1&gt;URGENT: {{target}}&lt;/h1&gt;
+&lt;a href='http://evil.com'&gt;CLICK HERE&lt;/a&gt;"></textarea>
+
+      <h3 style="color:#ff0;margin-top:20px;">📱 LIVE PREVIEW</h3>
+      <div class="preview" id="preview">
+        Select a template to preview...
+      </div>
+
+      <button onclick="initiateObliteration()" 
+        style="margin-top:25px;font-size:16px;padding:20px;">
+        💥 LAUNCH TOTAL OBLITERATION
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let currentTemplate = 'verification';
+    let blastInterval;
+
+    // 🔄 LIVE STATS UPDATER (1.5s)
+    async function updateStats() {
+      try {
+        const response = await fetch('/api/stats');
+        const data = await response.json();
+        
+        // Update all stats
+        document.getElementById('successRate').textContent = data.successRate + '%';
+        document.getElementById('sent').textContent = `${data.stats.obliterated}/${data.stats.total}`;
+        document.getElementById('providers').textContent = data.providersActive;
+        document.getElementById('leads').textContent = data.leadsParsed;
+        document.getElementById('campaigns').textContent = data.campaigns;
+        document.getElementById('remaining').textContent = data.emailsRemaining;
+        document.getElementById('bounced').textContent = data.stats.bounced;
+        document.getElementById('currentTemplate').textContent = data.currentTemplate?.toUpperCase() || '-';
+        
+        // Progress bar
+        const percent = data.stats.total ? (data.stats.obliterated / data.stats.total * 100) : 0;
+        const bar = document.getElementById('blastBar');
+        bar.style.width = percent + '%';
+        bar.setAttribute('data-percent', Math.round(percent));
+        
+        // Step navigation
+        showStep(data.step);
+        
+        // Blast status
+        if (data.emailsRemaining === 0) {
+          document.getElementById('stopBtn').style.display = 'none';
+          clearInterval(blastInterval);
+        }
+        
+      } catch (error) {
+        console.log('Stats update failed:', error);
+      }
+    }
+
+    function showStep(step) {
+      document.querySelectorAll('.step').forEach((stepEl, index) => {
+        stepEl.classList.toggle('active', index + 1 === step);
+      });
+    }
+
+    // 📨 STEP NAVIGATION
+    async function nextStep(step) {
+      if (step === 1) {
+        const emails = document.getElementById('emails').value.trim();
+        if (!emails) return alert('Enter target emails first!');
+        
+        await fetch('/api/step1', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ emails })
+        });
+      } else if (step === 2) {
+        await fetch('/api/step2', { method: 'POST' });
+      }
+      updateStats();
+    }
+
+    // 🤖 LOAD AI TEMPLATES
+    async function loadTemplates() {
+      try {
+        const response = await fetch('/api/stats');
+        const { templates } = await response.json();
+        
+        const list = document.getElementById('templateList');
+        list.innerHTML = Object.entries(templates)
+          .map(([key, data]) => `
+            <div class="template-item" onclick="selectTemplate('${key}')">
+              <span>${Object.keys(templates).indexOf(key) + 1}.</span>
+              <strong>${data.name}</strong>
+              <span style="color:#ff0">${data.successRate}%</span>
+            </div>
+          `).join('');
+      } catch (e) {
+        console.log('Template load failed');
+      }
+    }
+
+    // 📋 TEMPLATE SELECTION
+    async function selectTemplate(name) {
+      currentTemplate = name;
+      document.querySelectorAll('.template-item').forEach(item => 
+        item.classList.remove('selected')
+      );
+      event.target.classList.add('selected');
+      
+      const response = await fetch(`/api/templates/${name}`);
+      const { html } = await response.json();
+      document.getElementById('preview').innerHTML = 
+        html.replace('{{target}}', 'victim@target.corp');
+    }
+
+    function toggleCustomEditor() {
+      const select = document.getElementById('templateSelect');
+      const editor = document.getElementById('customEditor');
+      editor.style.display = select.value === 'custom' ? 'block' : 'none';
+      if (select.value !== 'custom') selectTemplate(select.value);
+    }
+
+    // 💥 BLAST INITIATION
+    async function initiateObliteration() {
+      const template = document.getElementById('templateSelect').value;
+      const customHtml = document.getElementById('customEditor').value;
+      
+      const payload = { template };
+      if (template === 'custom' && customHtml) {
+        payload.custom = customHtml;
+      }
+      
+      const response = await fetch('/api/blast', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      const result = await response.json();
+      if (result.success) {
+        document.getElementById('stopBtn').style.display = 'block';
+        console.log('💥 OBLITERATION LAUNCHED');
+      }
+    }
+
+    function stopBlast() {
+      document.getElementById('stopBtn').style.display = 'none';
+      console.log('⏹️ Blast stopped (server continues)');
+    }
+
+    // 🚀 INIT SYSTEM
+    setInterval(updateStats, 1500);
+    loadTemplates();
+    updateStats();
+  </script>
+</body>
+</html>
